@@ -120,7 +120,6 @@ public class AuthorizerModel {
     private String emailid;
     @JsonProperty
     private byte[] authorizerphoto;
-
     @JsonProperty
     private String pannumber;
     @JsonProperty
