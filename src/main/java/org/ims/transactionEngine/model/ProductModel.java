@@ -6,6 +6,7 @@
 
 package org.ims.transactionEngine.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
 /**
@@ -13,15 +14,25 @@ import java.util.Date;
  * @author Suresh Kumar V
  */
 public class ProductModel {
+    @JsonProperty
      private String productcode;
+    @JsonProperty
      private String productcategorycode;
+    @JsonProperty
      private String enteredby;
+    @JsonProperty
      private String productname;
+    @JsonProperty
      private String specificationandthickness;
+    @JsonProperty
      private String size;
+    @JsonProperty
      private String units;
+    @JsonProperty
      private Long moq;
+    @JsonProperty
      private String color;
+    @JsonProperty
      private Date enteredDate;
 
     public String getProductcode() {

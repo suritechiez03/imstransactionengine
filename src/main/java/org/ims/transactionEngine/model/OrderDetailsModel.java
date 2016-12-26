@@ -3,34 +3,75 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ims.transactionEngine.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 
+ *
  * @author Suresh Kumar V
  */
 public class OrderDetailsModel {
-    @JsonProperty 
-     private Integer id;
-    @JsonProperty 
-     private String productcode;
-    @JsonProperty 
-     private Long orderQuantity;
-    @JsonProperty 
-     private Long dispatchedQuantity;
-    @JsonProperty 
-     private Double basicRate;
-    @JsonProperty 
-     private Double discount;
-    @JsonProperty 
-     private String particulars;
-    @JsonProperty 
-     private Double vat;
 
+    @JsonProperty
+    private Integer id;
+    @JsonProperty
+    private String productcode;
+    @JsonProperty
+    private String productname;
+    @JsonProperty
+    private Long orderQuantity;
+    @JsonProperty
+    private String units;
+    @JsonProperty
+    private Long dispatchedQuantity;
+    @JsonProperty
+    private BigDecimal basicRate;
+    @JsonProperty
+    private Double Discount;
+    @JsonProperty
+    private String particulars;
+    @JsonProperty
+    private Double VAT;
+    @JsonProperty
+    private BigDecimal amount;
+    @JsonProperty
+    private Date enteredDate;
+    @JsonProperty
+    private Date lasModifiedDate;
+    @JsonProperty
+    private Long modifedBy;
+    @JsonProperty
+    private BigDecimal UnitPrice;
+    @JsonProperty
+    private BigDecimal TotalPrice;
+    @JsonProperty
+    private Double MarginPrecnt;
+    @JsonProperty
+    private BigDecimal MarginAmt;
+    @JsonProperty
+    private Double DealerPrice;
+    
+
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
+    public Long getOrderNumber() {
+        return OrderNumber;
+    }
+
+    public void setOrderNumber(Long OrderNumber) {
+        this.OrderNumber = OrderNumber;
+    }
+    @JsonProperty
+    private Long OrderNumber;
+    
     public String getProductcode() {
         return productcode;
     }
@@ -38,14 +79,14 @@ public class OrderDetailsModel {
     public void setProductcode(String productcode) {
         this.productcode = productcode;
     }
-    @JsonProperty 
-     private Double amount;
-    @JsonProperty 
-     private Date enteredDate;
-    @JsonProperty 
-     private Date lasModifiedDate;
-    @JsonProperty 
-     private Long modifedBy;
+
+    public String getProductname() {
+        return productname;
+    }
+
+    public void setProductname(String productname) {
+        this.productname = productname;
+    }
 
     public Integer getId() {
         return id;
@@ -54,7 +95,6 @@ public class OrderDetailsModel {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     public Long getOrderQuantity() {
         return orderQuantity;
@@ -72,20 +112,20 @@ public class OrderDetailsModel {
         this.dispatchedQuantity = dispatchedQuantity;
     }
 
-    public Double getBasicRate() {
+    public BigDecimal getBasicRate() {
         return basicRate;
     }
 
-    public void setBasicRate(Double basicRate) {
+    public void setBasicRate(BigDecimal basicRate) {
         this.basicRate = basicRate;
     }
 
     public Double getDiscount() {
-        return discount;
+        return Discount;
     }
 
-    public void setDiscount(Double discount) {
-        this.discount = discount;
+    public void setDiscount(Double Discount) {
+        this.Discount = Discount;
     }
 
     public String getParticulars() {
@@ -97,18 +137,18 @@ public class OrderDetailsModel {
     }
 
     public Double getVat() {
-        return vat;
+        return VAT;
     }
 
-    public void setVat(Double vat) {
-        this.vat = vat;
+    public void setVat(Double VAT) {
+        this.VAT = VAT;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -135,5 +175,5 @@ public class OrderDetailsModel {
     public void setModifedBy(Long modifedBy) {
         this.modifedBy = modifedBy;
     }
-     
+
 }

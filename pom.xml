@@ -12,11 +12,6 @@
         <spring.version>4.0.1.RELEASE</spring.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>imsdao</artifactId>
-            <version>${project.version}</version>
-        </dependency>
          <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -40,6 +35,11 @@
         <artifactId>jackson-annotations</artifactId>
         <version>2.2.3</version>
     </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>imsdao</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
