@@ -13,6 +13,7 @@ import org.ims.dao.entitydao.ImsGenraldefinitionDAO;
 import org.ims.dao.entitydao.ImsTaxslabDAO;
 import org.ims.transactionEngine.model.GeneralDefinitionModel;
 import org.ims.transactionEngine.model.TaxModel;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -20,8 +21,10 @@ import org.ims.transactionEngine.model.TaxModel;
  */
 public class MiscService {
 
-    ImsGenraldefinitionDAO imsGenraldefinitionDAO = new ImsGenraldefinitionDAO();
-    ImsTaxslabDAO imsTaxslabDAO=new ImsTaxslabDAO();
+    @Autowired
+    ImsGenraldefinitionDAO imsGenraldefinitionDAO;
+    @Autowired
+    ImsTaxslabDAO imsTaxslabDAO;
 
     public List<GeneralDefinitionModel> getGeneralDefByValue(String Value) {
         List<GeneralDefinitionModel> listGD = new ArrayList<>();
@@ -36,11 +39,12 @@ public class MiscService {
         return listGD;
 
     }
-    public List<TaxModel> getActiveTaxSlab(){
-        List<TaxModel> taxList=new ArrayList<>();
-        List<ImsTaxslab> objTaxslab=imsTaxslabDAO.findAllByValue(" status='"+1+"'");
+
+    public List<TaxModel> getActiveTaxSlab() {
+        List<TaxModel> taxList = new ArrayList<>();
+        List<ImsTaxslab> objTaxslab = imsTaxslabDAO.findAllByValue(" status='" + 1 + "'");
         for (ImsTaxslab objTaxslab1 : objTaxslab) {
-            TaxModel objmodel=new TaxModel();
+            TaxModel objmodel = new TaxModel();
             objmodel.setVat1(objTaxslab1.getVat1());
             objmodel.setVat2(objTaxslab1.getVat2());
             objmodel.setCstpercentage(objTaxslab1.getCstpercentage());
@@ -49,9 +53,9 @@ public class MiscService {
             objmodel.setSecondaryEducationCessPercentage(objTaxslab1.getSecondaryEducationCessPercentage());
             objmodel.setStatus(objTaxslab1.getStatus());
             taxList.add(objmodel);
-            
+
         }
         return taxList;
-        
+
     }
 }

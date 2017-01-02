@@ -12,14 +12,15 @@ import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entity.ImsSuppliermaster;
 import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.transactionEngine.model.SupplierModel;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Suresh Kumar V
  */
 public class SupplierService {
-
-    ImsSupplierDetailsDAO imssupplierdao = new ImsSupplierDetailsDAO();
+    @Autowired
+    ImsSupplierDetailsDAO imssupplierdao ;
 
     public String imsGenerateSupplierNumber() {
         String imsv_newsupplierno = "";

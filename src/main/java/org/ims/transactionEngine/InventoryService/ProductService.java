@@ -12,15 +12,17 @@ import org.ims.dao.entity.ImsProductdetails;
 import org.ims.dao.entitydao.ImsProductcategoryDAO;
 import org.ims.dao.entitydao.ImsProductdetailsDAO;
 import org.ims.transactionEngine.model.ProductModel;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Suresh Kumar V
  */
 public class ProductService {
-
-    ImsProductdetailsDAO imsproductsdao = new ImsProductdetailsDAO();
-    ImsProductcategoryDAO imsproductcategorydao = new ImsProductcategoryDAO();
+    @Autowired
+    ImsProductdetailsDAO imsproductsdao ;
+    @Autowired
+    ImsProductcategoryDAO imsproductcategorydao ;
 
     public boolean addProduct(ProductModel productdetails, ImsLogindetails logininfo) throws Exception {
         ImsProductdetails product = new ImsProductdetails();

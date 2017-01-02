@@ -52,7 +52,7 @@ public class OrderDetailsModel {
     @JsonProperty
     private BigDecimal MarginAmt;
     @JsonProperty
-    private Double DealerPrice;
+    private BigDecimal DealerPrice;
     
 
     public String getUnits() {
@@ -136,14 +136,6 @@ public class OrderDetailsModel {
         this.particulars = particulars;
     }
 
-    public Double getVat() {
-        return VAT;
-    }
-
-    public void setVat(Double VAT) {
-        this.VAT = VAT;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
@@ -175,5 +167,54 @@ public class OrderDetailsModel {
     public void setModifedBy(Long modifedBy) {
         this.modifedBy = modifedBy;
     }
+
+    public Double getVAT() {
+        return VAT;
+    }
+
+    public void setVAT(Double VAT) {
+        this.VAT = VAT;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return UnitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal UnitPrice) {
+        this.UnitPrice = UnitPrice;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return TotalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal TotalPrice) {
+        this.TotalPrice = TotalPrice;
+    }
+
+    public Double getMarginPrecnt() {
+        return MarginPrecnt;
+    }
+
+    public void setMarginPrecnt(Double MarginPrecnt) {
+        this.MarginPrecnt = MarginPrecnt;
+    }
+
+    public BigDecimal getMarginAmt() {
+        return MarginAmt;
+    }
+
+    public void setMarginAmt(BigDecimal MarginAmt) {
+        this.MarginAmt = MarginAmt;
+    }
+
+    public BigDecimal getDealerPrice() {
+        return DealerPrice;
+    }
+
+    public void setDealerPrice(BigDecimal DealerPrice) {
+        this.DealerPrice = DealerPrice;
+    }
+    
 
 }

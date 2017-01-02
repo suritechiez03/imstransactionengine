@@ -12,6 +12,8 @@ import org.ims.dao.entity.ImsDealermaster;
 import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entitydao.ImsDealerDetailsDAO;
 import org.ims.transactionEngine.model.DealerModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -21,7 +23,8 @@ public class DealerService {
 
 //    ApplicationContext context = new ClassPathXmlApplicationContext("transactionbeans.xml");
 //    ImsDealerDetailsDAO imsdealerdao = (ImsDealerDetailsDAO) context.getBean("ImsDealerMasterDAO");
-    ImsDealerDetailsDAO imsdealerdao = new ImsDealerDetailsDAO();
+    @Autowired
+    ImsDealerDetailsDAO imsdealerdao ;
 
     public String imsGenerateDealerNumber() {
         String imsv_newdealerno = "";
@@ -51,7 +54,7 @@ public class DealerService {
         }
         return "DE" + zero + tmp;
     }
-
+    @Transactional
     public boolean saveDealerDetails(DealerModel dealer, ImsLogindetails Logininfo) {
 
         ImsDealermaster dealerobj = new ImsDealermaster();

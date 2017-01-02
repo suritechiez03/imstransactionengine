@@ -8,17 +8,15 @@ package org.ims.transactionEngine.securityManager;
 
 import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entitydao.ImsLogindetailsDAO;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author suri
  */
 public class Loginservice {
-    
-    ApplicationContext context = new ClassPathXmlApplicationContext("transactionbeans.xml");
-    ImsLogindetailsDAO imslogindao = (ImsLogindetailsDAO) context.getBean("ImsLogindetailsDAO");
+    @Autowired    
+    ImsLogindetailsDAO imslogindao ;
     public boolean isUserExisits(String username,String password){
         
         if (imslogindao.findOne(username).getUserPassword().endsWith(password)){

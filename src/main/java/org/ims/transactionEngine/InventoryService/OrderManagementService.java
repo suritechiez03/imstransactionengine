@@ -22,18 +22,23 @@ import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.transactionEngine.model.OrderDetailsModel;
 import org.ims.transactionEngine.model.OrderManagementModel;
 import org.ims.transactionEngine.securityManager.ApplicationUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Suresh Kumar V
  */
 public class OrderManagementService {
-
-    ImsManageordersDAO imsmanageorders = new ImsManageordersDAO();
-    ImsProductdetailsDAO imsProductdetailsDAO = new ImsProductdetailsDAO();
-    ImsDealerDetailsDAO imsDealerDetailsDAO=new ImsDealerDetailsDAO();
-    ImsSupplierDetailsDAO imsSupplierDetailsDAO=new ImsSupplierDetailsDAO();
-    ImsManageorderdetailsDAO  imsManageorderdetailsDAO=new  ImsManageorderdetailsDAO();
+    @Autowired
+    ImsManageordersDAO imsmanageorders;
+    @Autowired
+    ImsProductdetailsDAO imsProductdetailsDAO ;
+    @Autowired
+    ImsDealerDetailsDAO imsDealerDetailsDAO;
+    @Autowired
+    ImsSupplierDetailsDAO imsSupplierDetailsDAO;
+    @Autowired
+    ImsManageorderdetailsDAO  imsManageorderdetailsDAO;
     
     public String saveOrder(OrderManagementModel Orders, ImsLogindetails logininfo) throws ParseException {
         ImsManageorders order = new ImsManageorders();
@@ -111,7 +116,7 @@ public class OrderManagementService {
                 orddetailModel.setDispatchedQuantity(ordDetail.getDispatchedQuantity());
                 orddetailModel.setEnteredDate(ordDetail.getEnteredDate());
                 orddetailModel.setParticulars(ordDetail.getParticulars());
-                orddetailModel.setVat(ordDetail.getVat());
+                orddetailModel.setVAT(ordDetail.getVat());
                 ordDetailList.add(orddetailModel);
             }
             ordObj.setproducts(ordDetailList);

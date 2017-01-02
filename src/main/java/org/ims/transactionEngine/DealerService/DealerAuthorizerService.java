@@ -13,15 +13,17 @@ import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entitydao.ImsDealerDetailsDAO;
 import org.ims.dao.entitydao.ImsDealersauthorizerDAO;
 import org.ims.transactionEngine.model.AuthorizerModel;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Suresh Kumar V
  */
 public class DealerAuthorizerService {
-
-    ImsDealersauthorizerDAO dealerauthorizer = new ImsDealersauthorizerDAO();
-    ImsDealerDetailsDAO dealerdao = new ImsDealerDetailsDAO();
+    @Autowired
+    ImsDealersauthorizerDAO dealerauthorizer ;
+    @Autowired
+    ImsDealerDetailsDAO dealerdao ;
 
     public String imsGenerateDealerAuthorizerNumber() {
         String imsv_newdealerauthorizerno = "";

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.ims.transactionEngine.SupplierService;
 
 import java.util.ArrayList;
@@ -14,16 +13,20 @@ import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.dao.entitydao.ImsSuppliersauthorizerDAO;
 import org.ims.transactionEngine.model.AuthorizerModel;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 
+ *
  * @author Suresh Kumar V
  */
 public class SupplierAuthorizerService {
-       ImsSupplierDetailsDAO supplierauthorizer= new ImsSupplierDetailsDAO();
-       ImsSuppliersauthorizerDAO supplierauthorizerdao=new ImsSuppliersauthorizerDAO();
-    
-     public String imsGenerateSupplierAuthorizerNumber() {
+
+    @Autowired
+    ImsSupplierDetailsDAO supplierauthorizer;
+    @Autowired
+    ImsSuppliersauthorizerDAO supplierauthorizerdao;
+
+    public String imsGenerateSupplierAuthorizerNumber() {
         String imsv_newsupplierauthorizerno = "";
         int tmpsupplierno;
         List<Map> data = supplierauthorizer.executeCustomSQL("SELECT COALESCE(Max(substr(AuthrizerID,5,9)),0)  as SAuthrizerID FROM IMS_DB.ims_suppliersauthorizer");
@@ -39,6 +42,7 @@ public class SupplierAuthorizerService {
 
         return imsv_newsupplierauthorizerno;
     }
+
     private String paddzero(String tmp) {
 
         int len = 0;
@@ -50,7 +54,8 @@ public class SupplierAuthorizerService {
         }
         return "AUTS" + zero + tmp;
     }
-  public boolean saveSupplierAuthorizerDetails(AuthorizerModel authorizerModel, ImsLogindetails logininfo) {
+
+    public boolean saveSupplierAuthorizerDetails(AuthorizerModel authorizerModel, ImsLogindetails logininfo) {
         ImsSuppliersauthorizer supplierauth = new ImsSuppliersauthorizer();
         supplierauth.setAuthrizerId(authorizerModel.getAuthorizerId());
         supplierauth.setAuthrizerName(authorizerModel.getAuthorizername());
@@ -61,7 +66,7 @@ public class SupplierAuthorizerService {
         supplierauth.setStatus(Boolean.TRUE);
         supplierauth.setEnteredDate(authorizerModel.getEnteredDate());
         supplierauth.setImsLogindetails(logininfo);
-        supplierauth.setImsSuppliermaster(supplierauthorizer.findOne(" SupplierNumber='" + authorizerModel.getDealerorsupplierno()+ "'"));
+        supplierauth.setImsSuppliermaster(supplierauthorizer.findOne(" SupplierNumber='" + authorizerModel.getDealerorsupplierno() + "'"));
         supplierauthorizerdao.create(supplierauth);
         return true;
     }
@@ -77,11 +82,11 @@ public class SupplierAuthorizerService {
         supplierauth.setStatus(authorizerModel.getStatus());
         supplierauth.setEnteredDate(authorizerModel.getEnteredDate());
         supplierauth.setImsLogindetails(logininfo);
-        supplierauth.setImsSuppliermaster(supplierauthorizer.findOne(" SupplierNumber='" + authorizerModel.getDealerorsupplierno()+ "'"));
+        supplierauth.setImsSuppliermaster(supplierauthorizer.findOne(" SupplierNumber='" + authorizerModel.getDealerorsupplierno() + "'"));
         supplierauthorizerdao.update(supplierauth);
         return true;
     }
-    
+
     public List<AuthorizerModel> Ims_getSupplierAuhtorizerList(ImsLogindetails key) {
         List<AuthorizerModel> authorizermodel = new ArrayList<>();
         List<ImsSuppliersauthorizer> supplierauthorizerlist = supplierauthorizerdao.findAll();
@@ -96,11 +101,11 @@ public class SupplierAuthorizerService {
             supplierauthobj.setStatus(authorizer.getStatus());
             supplierauthobj.setEnteredDate(authorizer.getEnteredDate());
             supplierauthobj.setEnteredBy(authorizer.getImsLogindetails().getUserName());
-            supplierauthobj.setDealerorsupplierno(authorizer.getImsSuppliermaster().getSupplierNumber());             
+            supplierauthobj.setDealerorsupplierno(authorizer.getImsSuppliermaster().getSupplierNumber());
             supplierauthobj.setOtherDetails(authorizer.getOtherDetails());
             supplierauthobj.setAuthorizerFor("Supplier");
             authorizermodel.add(supplierauthobj);
-            }
+        }
         return authorizermodel;
     }
 }

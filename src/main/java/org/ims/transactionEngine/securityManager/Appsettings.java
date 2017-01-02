@@ -9,6 +9,7 @@ package org.ims.transactionEngine.securityManager;
 import java.util.List;
 import org.ims.dao.entity.ImsAppsettings;
 import org.ims.dao.entitydao.ImsAppSettingDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,11 +17,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author suri
  */
-public class Appsettings {
-    ApplicationContext context = new ClassPathXmlApplicationContext("transactionbeans.xml");
-    
+public class Appsettings  {
+
+    @Autowired
+    private ImsAppSettingDAO imsappsettings ;
     public List<ImsAppsettings> getAllAppSettings(){
-        ImsAppSettingDAO imsappsettings = (ImsAppSettingDAO) context.getBean("ImsAppSettingsDAO");
+        
         return imsappsettings.findAll();
     }
     
