@@ -8,6 +8,7 @@ package org.ims.transactionEngine.InventoryService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import javafx.application.Application;
 import org.ims.dao.entity.ImsInvoiceMaster;
 import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entity.ImsManageorderdetails;
@@ -23,6 +24,8 @@ import org.ims.transactionEngine.model.InvoiceModel;
 import org.ims.transactionEngine.model.OrderDetailsModel;
 import org.ims.transactionEngine.model.OrderManagementModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -43,7 +46,7 @@ public class InvoiceService {
     OrderManagementService ordmgmt;
     @Autowired
     ImsInvoiceMasterDAO imsInvoiceDAO;
-    
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public String ProcessInvoice(OrderManagementModel Orders, InvoiceModel invoicedet, ImsLogindetails logininfo) {
 
         ImsManageorders order = new ImsManageorders();
@@ -53,8 +56,8 @@ public class InvoiceService {
         order.setOrderFor(Orders.getOrderFor());
         order.setOrderRaisedBy(Orders.getDealerorsupplierno());
         order.setOrderRaisedDate(invoicedet.getInvoicedate());
-        order.setOrderStatus(1);
-        order.setOrderType(1);
+        order.setOrderStatus(2); //1 =Order Raised 2=OrderRaised and Invoice 3=Cleared 4=Cancelled
+        order.setOrderType(2); //If through invoice 2 ;From Order 1
         for (OrderDetailsModel orders : Orders.getproducts()) {
             ImsManageorderdetails orderdetail = new ImsManageorderdetails();
             orderdetail.setImsManageorders(order);
@@ -108,6 +111,9 @@ public class InvoiceService {
         invoice.setTotalAmount(invoicedet.getFinalAmount());
         invoice.setBalanceAmount(invoicedet.getBalanceAmount());
         invoice.setImsManageorders(order);
+        invoice.setInvoiceStatus(1); //1=Invoice Raised ; 2=Partial Payment ;3=Cleared;
+        invoice.setEnteredDate(invoicedet.getEnteredDate());
+        invoice.setImsLogindetails(logininfo);
         InvoiceList.add(invoice);
         order.setImsInvoiceMasters(new HashSet<>(InvoiceList));        
         imsInvoiceDAO.saveInvoice(order, invoice, transaction);

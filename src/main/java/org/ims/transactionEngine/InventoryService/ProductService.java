@@ -13,6 +13,8 @@ import org.ims.dao.entitydao.ImsProductcategoryDAO;
 import org.ims.dao.entitydao.ImsProductdetailsDAO;
 import org.ims.transactionEngine.model.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,7 +25,7 @@ public class ProductService {
     ImsProductdetailsDAO imsproductsdao ;
     @Autowired
     ImsProductcategoryDAO imsproductcategorydao ;
-
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean addProduct(ProductModel productdetails, ImsLogindetails logininfo) throws Exception {
         ImsProductdetails product = new ImsProductdetails();
         product.setProductCode(productdetails.getProductcode());

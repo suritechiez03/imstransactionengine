@@ -13,6 +13,8 @@ import org.ims.dao.entity.ImsSuppliermaster;
 import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.transactionEngine.model.SupplierModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -50,7 +52,7 @@ public class SupplierService {
         }
         return "SE" + zero + tmp;
     }
-
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean saveSupplierDetails(SupplierModel supplier, ImsLogindetails Logininfo) {
 
         ImsSuppliermaster supplierobj = new ImsSuppliermaster();
@@ -71,7 +73,7 @@ public class SupplierService {
 
         return true;
     }
-
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean updateSupplierDetails(SupplierModel supplier, ImsLogindetails Logininfo) {
 
         ImsSuppliermaster supplierobj = new ImsSuppliermaster();

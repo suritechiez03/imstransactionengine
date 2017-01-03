@@ -12,6 +12,8 @@ import org.ims.dao.entity.ImsProductcategory;
 import org.ims.dao.entitydao.ImsProductcategoryDAO;
 import org.ims.transactionEngine.model.ProductCategoryModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -20,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProductCategoryService {
     @Autowired
     ImsProductcategoryDAO imsproductcategorydao;
-
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean addProductCategory(ProductCategoryModel productcategory, ImsLogindetails logininfo) throws Exception {
         ImsProductcategory prdcategoryobj = new ImsProductcategory();
         prdcategoryobj.setCategoryCode(productcategory.getProductcategorycode());
@@ -31,7 +33,7 @@ public class ProductCategoryService {
         imsproductcategorydao.create(prdcategoryobj);
         return true;
     }
-
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean updateProductCategory(ProductCategoryModel productcategory, ImsLogindetails logininfo) throws Exception {
         ImsProductcategory prdcategoryobj = new ImsProductcategory();
         prdcategoryobj.setCategoryCode(productcategory.getProductcategorycode());

@@ -13,6 +13,7 @@ import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entitydao.ImsDealerDetailsDAO;
 import org.ims.transactionEngine.model.DealerModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -54,7 +55,7 @@ public class DealerService {
         }
         return "DE" + zero + tmp;
     }
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean saveDealerDetails(DealerModel dealer, ImsLogindetails Logininfo) {
 
         ImsDealermaster dealerobj = new ImsDealermaster();
@@ -75,7 +76,7 @@ public class DealerService {
 
         return true;
     }
-
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean updateDealerDetails(DealerModel dealer, ImsLogindetails Logininfo) {
 
         ImsDealermaster dealerobj = new ImsDealermaster();

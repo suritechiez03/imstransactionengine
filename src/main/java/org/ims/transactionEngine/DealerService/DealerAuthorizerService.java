@@ -14,6 +14,8 @@ import org.ims.dao.entitydao.ImsDealerDetailsDAO;
 import org.ims.dao.entitydao.ImsDealersauthorizerDAO;
 import org.ims.transactionEngine.model.AuthorizerModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -53,7 +55,7 @@ public class DealerAuthorizerService {
         }
         return "AUTD" + zero + tmp;
     }
-
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean saveDealerAuthorizerDetails(AuthorizerModel authorizerModel, ImsLogindetails logininfo) {
         ImsDealersauthorizer dealerauth = new ImsDealersauthorizer();
         dealerauth.setAuthrizerId(authorizerModel.getAuthorizerId());
@@ -69,7 +71,7 @@ public class DealerAuthorizerService {
         dealerauthorizer.create(dealerauth);
         return true;
     }
-
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean updateDealerAuthorizerDetails(AuthorizerModel authorizerModel, ImsLogindetails logininfo) {
         ImsDealersauthorizer dealerauth = new ImsDealersauthorizer();
         dealerauth.setAuthrizerId(authorizerModel.getAuthorizerId());

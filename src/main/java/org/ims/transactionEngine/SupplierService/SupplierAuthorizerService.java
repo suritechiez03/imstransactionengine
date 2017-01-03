@@ -14,6 +14,8 @@ import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.dao.entitydao.ImsSuppliersauthorizerDAO;
 import org.ims.transactionEngine.model.AuthorizerModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -54,7 +56,7 @@ public class SupplierAuthorizerService {
         }
         return "AUTS" + zero + tmp;
     }
-
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean saveSupplierAuthorizerDetails(AuthorizerModel authorizerModel, ImsLogindetails logininfo) {
         ImsSuppliersauthorizer supplierauth = new ImsSuppliersauthorizer();
         supplierauth.setAuthrizerId(authorizerModel.getAuthorizerId());
@@ -70,7 +72,7 @@ public class SupplierAuthorizerService {
         supplierauthorizerdao.create(supplierauth);
         return true;
     }
-
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean updateSupplierAuthorizerDetails(AuthorizerModel authorizerModel, ImsLogindetails logininfo) {
         ImsSuppliersauthorizer supplierauth = new ImsSuppliersauthorizer();
         supplierauth.setAuthrizerId(authorizerModel.getAuthorizerId());

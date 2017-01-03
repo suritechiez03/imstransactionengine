@@ -23,6 +23,8 @@ import org.ims.transactionEngine.model.OrderDetailsModel;
 import org.ims.transactionEngine.model.OrderManagementModel;
 import org.ims.transactionEngine.securityManager.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -39,7 +41,7 @@ public class OrderManagementService {
     ImsSupplierDetailsDAO imsSupplierDetailsDAO;
     @Autowired
     ImsManageorderdetailsDAO  imsManageorderdetailsDAO;
-    
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public String saveOrder(OrderManagementModel Orders, ImsLogindetails logininfo) throws ParseException {
         ImsManageorders order = new ImsManageorders();
         String generatedorderno=imsGenerateOrderNumber();
