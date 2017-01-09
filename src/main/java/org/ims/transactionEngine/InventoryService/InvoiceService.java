@@ -8,11 +8,12 @@ package org.ims.transactionEngine.InventoryService;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import javafx.application.Application;
+import java.util.Map;
 import org.ims.dao.entity.ImsInvoiceMaster;
 import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entity.ImsManageorderdetails;
 import org.ims.dao.entity.ImsManageorders;
+import org.ims.dao.entity.ImsStockdetails;
 import org.ims.dao.entity.ImsTransactiondetails;
 import org.ims.dao.entitydao.ImsDealerDetailsDAO;
 import org.ims.dao.entitydao.ImsInvoiceMasterDAO;
@@ -23,6 +24,7 @@ import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.transactionEngine.model.InvoiceModel;
 import org.ims.transactionEngine.model.OrderDetailsModel;
 import org.ims.transactionEngine.model.OrderManagementModel;
+import org.ims.transactionEngine.securityManager.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +52,15 @@ public class InvoiceService {
     public String ProcessInvoice(OrderManagementModel Orders, InvoiceModel invoicedet, ImsLogindetails logininfo) {
 
         ImsManageorders order = new ImsManageorders();
-        String generatedorderno = ordmgmt.imsGenerateOrderNumber();
+        String generatedorderno;
+        if(Orders.getGeneratedOrderNo()==null)
+        {
+        generatedorderno= ordmgmt.imsGenerateOrderNumber();
+        }else
+        {
+            generatedorderno=Orders.getGeneratedOrderNo();
+            order.setOderNumber(Orders.getOrderNumber());
+        }
         List<ImsManageorderdetails> orderdetails = new ArrayList<ImsManageorderdetails>();
         order.setGeneratedOrderNo(generatedorderno);
         order.setOrderFor(Orders.getOrderFor());
@@ -68,6 +78,7 @@ public class InvoiceService {
             orderdetail.setEnteredDate(Orders.getEnteredDate());
             orderdetail.setUnitPrice(orders.getUnitPrice());
             orderdetail.setDiscount(orders.getDiscount());
+            orderdetail.setVat(orders.getVAT());
             orderdetail.setTotalPrice(orders.getTotalPrice());
             orderdetail.setMarginPrecnt(orders.getMarginPrecnt());
             orderdetail.setMarginAmt(orders.getMarginAmt());
@@ -115,8 +126,30 @@ public class InvoiceService {
         invoice.setEnteredDate(invoicedet.getEnteredDate());
         invoice.setImsLogindetails(logininfo);
         InvoiceList.add(invoice);
-        order.setImsInvoiceMasters(new HashSet<>(InvoiceList));        
+        order.setImsInvoiceMasters(new HashSet<>(InvoiceList));
+        
         imsInvoiceDAO.saveInvoice(order, invoice, transaction);
         return generatedorderno;
     }
+    
+    public String getSalesInvoiceNo(){
+        long invoiceno=0;
+
+        
+        String sql="SELECT (CASE WHEN COALESCE(Max(substr(InvoiceNo,8,9)),0)='' THEN 0 ELSE COALESCE(Max(substr(InvoiceNo,8,9)),0) END)  as InvoiceNo FROM Ims_InvoiceMaster M JOIN ims_manageorders ON M.OrderNo=ims_manageorders.OderNumber where ims_manageorders.OrderFor='Dealer'";
+        List<Map> data = imsInvoiceDAO.executeCustomSQL(sql);
+        if (!data.isEmpty()) { 
+            Map datamap = data.get(0);
+            if (Integer.parseInt(datamap.get("InvoiceNo").toString()) == 0) {
+                invoiceno=0;
+            } else {
+                invoiceno = Integer.parseInt(datamap.get("InvoiceNo").toString());
+                
+            }
+        }
+
+        return ApplicationUtil.GenerateInvoiceNumber(invoiceno);
+    }
+       
+    
 }

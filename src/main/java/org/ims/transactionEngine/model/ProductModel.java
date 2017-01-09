@@ -8,6 +8,7 @@ package org.ims.transactionEngine.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
+import org.ims.dao.entity.ImsStockdetails;
 
 /**
  * 
@@ -34,6 +35,8 @@ public class ProductModel {
      private String color;
     @JsonProperty
      private Date enteredDate;
+    @JsonProperty
+     private StockModel stockdetails;
 
     public String getProductcode() {
         return productcode;
@@ -114,5 +117,14 @@ public class ProductModel {
     public void setEnteredDate(Date enteredDate) {
         this.enteredDate = enteredDate;
     }
+
+    public StockModel getStockdetails() {
+        return stockdetails;
+    }
+
+    public void setStockdetails(StockModel stockdetails) {
+        this.stockdetails = stockdetails;
+    }
+    
      
 }

@@ -7,6 +7,7 @@ package org.ims.transactionEngine.securityManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
 import org.ims.dao.entity.ImsGenraldefinition;
 import org.ims.dao.entity.ImsTaxslab;
 import org.ims.dao.entitydao.ImsGenraldefinitionDAO;
@@ -25,6 +26,16 @@ public class MiscService {
     ImsGenraldefinitionDAO imsGenraldefinitionDAO;
     @Autowired
     ImsTaxslabDAO imsTaxslabDAO;
+    @Autowired
+    DataSource dataSource;
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public List<GeneralDefinitionModel> getGeneralDefByValue(String Value) {
         List<GeneralDefinitionModel> listGD = new ArrayList<>();

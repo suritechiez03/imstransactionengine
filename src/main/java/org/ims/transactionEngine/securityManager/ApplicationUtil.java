@@ -13,13 +13,7 @@ package org.ims.transactionEngine.securityManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import org.hibernate.Criteria;
-import org.hibernate.SQLQuery;
 import java.text.ParseException;
-import org.hibernate.Session;
-import org.ims.dao.session.HibernateUtil;
 
 /**
  *
@@ -29,6 +23,7 @@ public class ApplicationUtil {
     /*
           Used to convert date to us date format 'yyyy-MM-dd'
     */
+
     public static Date tousformat(String dateString) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.parse(dateString);
@@ -119,6 +114,8 @@ public class ApplicationUtil {
 
         return (invoiceyear + (invoiceno + 1)).toString();
     }
+    
+  
     
 }
 

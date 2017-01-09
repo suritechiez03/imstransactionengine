@@ -90,6 +90,16 @@ public class InvoiceModel {
     @JsonProperty
     private Date enteredDate;
 
+    @JsonProperty
+    private String GeneratedOrderNo;
+    
+    public String getGeneratedOrderNo() {
+        return GeneratedOrderNo;
+    }
+
+    public void setGeneratedOrderNo(String GeneratedOrderNo) {
+        this.GeneratedOrderNo = GeneratedOrderNo;
+    }
     public String getInvoiceNo() {
         return InvoiceNo;
     }

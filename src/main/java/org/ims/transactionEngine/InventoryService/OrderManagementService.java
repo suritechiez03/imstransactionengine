@@ -14,6 +14,7 @@ import java.util.Set;
 import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entity.ImsManageorderdetails;
 import org.ims.dao.entity.ImsManageorders;
+import org.ims.dao.entity.ImsStockdetails;
 import org.ims.dao.entitydao.ImsDealerDetailsDAO;
 import org.ims.dao.entitydao.ImsManageorderdetailsDAO;
 import org.ims.dao.entitydao.ImsManageordersDAO;
@@ -21,7 +22,6 @@ import org.ims.dao.entitydao.ImsProductdetailsDAO;
 import org.ims.dao.entitydao.ImsSupplierDetailsDAO;
 import org.ims.transactionEngine.model.OrderDetailsModel;
 import org.ims.transactionEngine.model.OrderManagementModel;
-import org.ims.transactionEngine.securityManager.ApplicationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -156,5 +156,5 @@ public class OrderManagementService {
         }
         return "ORD" + zero + tmp;
     }
-
+    
 }

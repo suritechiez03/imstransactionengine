@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.ims.dao.entity.ImsLogindetails;
 import org.ims.dao.entity.ImsProductdetails;
+import org.ims.dao.entity.ImsStockdetails;
 import org.ims.dao.entitydao.ImsProductcategoryDAO;
 import org.ims.dao.entitydao.ImsProductdetailsDAO;
+import org.ims.dao.entitydao.ImsStockdetailsDAO;
 import org.ims.transactionEngine.model.ProductModel;
+import org.ims.transactionEngine.model.StockModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +28,9 @@ public class ProductService {
     ImsProductdetailsDAO imsproductsdao ;
     @Autowired
     ImsProductcategoryDAO imsproductcategorydao ;
+    @Autowired
+    ImsStockdetailsDAO imsStockdetailsDAO;
+    
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public boolean addProduct(ProductModel productdetails, ImsLogindetails logininfo) throws Exception {
         ImsProductdetails product = new ImsProductdetails();
@@ -58,6 +64,7 @@ public class ProductService {
             objPrd.setProductcategorycode(product.getImsProductcategory().getCategoryCode());
             objPrd.setEnteredby(product.getImsLogindetails().getUserName());
             objPrd.setEnteredDate(product.getEnteredDate());
+            objPrd.setStockdetails(getStockDetails(product.getProductCode()));
             productlist.add(objPrd);
         }
         return productlist;
@@ -74,9 +81,24 @@ public class ProductService {
         objPrd.setMoq(product.getMoq());
         objPrd.setColor(product.getColor());
         objPrd.setProductcategorycode(product.getImsProductcategory().getCategoryCode());
+        objPrd.setStockdetails(getStockDetails(product.getProductCode()));
         objPrd.setEnteredby(product.getImsLogindetails().getUserName());
         objPrd.setEnteredDate(product.getEnteredDate());
 
         return objPrd;
+    }
+    
+    public StockModel getStockDetails(String PrdCode){
+        StockModel stock=new StockModel();
+        stock.setProductCode(PrdCode);
+        ImsStockdetails stockdet=imsStockdetailsDAO.findOne(" ProductCode='" +PrdCode+"'");
+        stock.setAvailableQty(stockdet.getAvailableQty());
+        stock.setDispatchedQty(stockdet.getDispatchedQty());
+        stock.setMarginPercentage(stockdet.getOurMarginPercentage());
+        stock.setMerginAmount(stockdet.getOurMerginAmount());
+        stock.setPurchasedQty(stockdet.getPurchasedQty());
+        stock.setDealerPrice(stockdet.getDealerPrice());
+        
+        return stock;
     }
 }
