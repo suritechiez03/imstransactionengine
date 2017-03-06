@@ -150,6 +150,11 @@ public class InvoiceService {
 
         return ApplicationUtil.GenerateInvoiceNumber(invoiceno);
     }
+    
+    public InvoiceModel getInvoiceDetails(String InvoiceNo){
+        
+        return null;
+    }
        
     
 }
