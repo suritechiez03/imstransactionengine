@@ -42,34 +42,60 @@ public class OrderManagementService {
     @Autowired
     ImsManageorderdetailsDAO  imsManageorderdetailsDAO;
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-    public String saveOrder(OrderManagementModel Orders, ImsLogindetails logininfo) throws ParseException {
+    public ImsManageorders saveOrder(OrderManagementModel Orders, ImsLogindetails logininfo,int OrderType) throws Exception {
         ImsManageorders order = new ImsManageorders();
-        String generatedorderno=imsGenerateOrderNumber();
+        String generatedorderno;
+        if (Orders.getGeneratedOrderNo()==null){
+        	generatedorderno=imsGenerateOrderNumber();
+                order.setGeneratedOrderNo(generatedorderno);
+        }else{
+        	order.setGeneratedOrderNo(Orders.getGeneratedOrderNo());
+        	generatedorderno=order.getGeneratedOrderNo();
+                order.setOderNumber(imsmanageorders.findOne(" GeneratedOrderNo='"+ Orders.getGeneratedOrderNo() +"'").getOderNumber());
+                
+        }
+        
         List<ImsManageorderdetails> orderdetails = new ArrayList<ImsManageorderdetails>();
-        order.setGeneratedOrderNo(generatedorderno);
+        
         order.setOrderFor(Orders.getOrderFor());
         order.setOrderRaisedBy(Orders.getDealerorsupplierno());
         order.setOrderRaisedDate(Orders.getOrderdate());
-        order.setOrderStatus(1);
-        order.setOrderType(1);
+        if(OrderType==1) // FORM ORDER
+        {
+            order.setOrderStatus(1); // 1 =Order Raised 2=OrderRaised and Invoice// 3=Cleared 4=Cancelled
+        }else if (OrderType==2) //FROM INVOICE
+        {
+            order.setOrderStatus(2); // 1 =Order Raised 2=OrderRaised and Invoice// 3=Cleared 4=Cancelled
+        }
+        order.setOrderType(OrderType);
         for (OrderDetailsModel orders : Orders.getproducts()) {
             ImsManageorderdetails orderdetail = new ImsManageorderdetails();
+            if (Orders.getGeneratedOrderNo()!=null){
+        	orderdetail.setId(orders.getId());
+            }            
             orderdetail.setImsManageorders(order);
             orderdetail.setImsProductdetails(imsProductdetailsDAO.findOne(("productCode='" + orders.getProductcode()) + "'"));
             orderdetail.setOrderQuantity(orders.getOrderQuantity());
             orderdetail.setTotalPrice(orders.getAmount());
             orderdetail.setImsLogindetails(logininfo);
             orderdetail.setEnteredDate(Orders.getEnteredDate());
+            orderdetail.setUnitPrice(orders.getUnitPrice());
+			orderdetail.setDiscount(orders.getDiscount());
+			orderdetail.setVat(orders.getVAT());
+			orderdetail.setTotalPrice(orders.getTotalPrice());
+			orderdetail.setMarginPrecnt(orders.getMarginPrecnt());
+			orderdetail.setMarginAmt(orders.getMarginAmt());
+			orderdetail.setDealerPrice(orders.getDealerPrice());
             orderdetails.add(orderdetail);
         }
         order.setImsManageorderdetailses(new HashSet<>(orderdetails));
         order.setEnteredDate(Orders.getEnteredDate());
         order.setImsLogindetails(logininfo);
-        imsmanageorders.create(order);
-        return generatedorderno;
+        imsmanageorders.SaveOrUpdateOrder(order);
+        return order;
 
     }
-
+  
     public List<OrderManagementModel> getOrderList(String key,String Value) throws Exception {
         List<OrderManagementModel> ordList = new ArrayList<>();
         List<ImsManageorders> orders=null;
@@ -100,7 +126,7 @@ public class OrderManagementService {
             ordObj.setOrderFor(order.getOrderFor());
             ordObj.setOrderdate(order.getOrderRaisedDate());
             ordObj.setGeneratedOrderNo(order.getGeneratedOrderNo());
-            
+            ordObj.setOrderstatus(order.getOrderStatus());
 //            order.getImsManageorderdetailses().size();
             Set<ImsManageorderdetails> ordDetails =  order.getImsManageorderdetailses();
 //            List<ImsManageorderdetails> ordDetails=imsManageorderdetailsDAO.findAllByValue(" OrderNumber='"+order.getOderNumber().toString() + "'");

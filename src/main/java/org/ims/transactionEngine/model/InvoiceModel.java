@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.ims.dao.entity.ImsManageorders;
+
 /**
  *
  * @author Suresh Kumar V
@@ -18,10 +20,13 @@ public class InvoiceModel {
     @JsonProperty
     private String InvoiceNo;
 //     private ImsLogindetails imsLogindetails;
-//     private ImsManageorders imsManageorders;
+    @JsonProperty
+    private String OrderNo;
+    
     @JsonProperty
     private String InvoiceFor;
-    @JsonProperty
+    
+	@JsonProperty
     private String InvoiceType;
     @JsonProperty
     private Date Invoicedate;
@@ -89,10 +94,10 @@ public class InvoiceModel {
     private Integer invoiceStatus;
     @JsonProperty
     private Date enteredDate;
-
+   
     @JsonProperty
     private String GeneratedOrderNo;
-    
+      
     public String getGeneratedOrderNo() {
         return GeneratedOrderNo;
     }
@@ -387,6 +392,13 @@ public class InvoiceModel {
     public void setEnteredDate(Date enteredDate) {
         this.enteredDate = enteredDate;
     }
-    
+    public String getOrderNo() {
+		return OrderNo;
+	}
+
+	public void setOrderNo(String OrderNo) {
+		this.OrderNo = OrderNo;
+	}
+
 
 }

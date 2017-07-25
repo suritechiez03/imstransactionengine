@@ -33,7 +33,17 @@ public class OrderManagementModel {
     private String EnteredBy;
     @JsonProperty
     private Date EnteredDate;
+    @JsonProperty
+    private int orderstatus;
 
+    public int getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(int orderstatus) {
+        this.orderstatus = orderstatus;
+    }
+    
     public String getDealerorsuppliername() {
         return dealerorsuppliername;
     }
