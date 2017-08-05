@@ -68,6 +68,7 @@ public class SupplierService {
         supplierobj.setEnteredDate(supplier.getEnteredDate());
         supplierobj.setImsLogindetails(Logininfo);
         supplierobj.setStatus(supplier.getStatus());
+        supplierobj.setGstnumber(supplier.getGstNumber());
         supplierobj.setOfflicePhNumber(supplier.getOfflicePhNumber());
         imssupplierdao.create(supplierobj);
 
@@ -89,6 +90,7 @@ public class SupplierService {
         supplierobj.setEnteredDate(supplier.getEnteredDate());
         supplierobj.setImsLogindetails(Logininfo);
         supplierobj.setStatus(supplier.getStatus());
+        supplierobj.setGstnumber(supplier.getGstNumber());
         supplierobj.setOfflicePhNumber(supplier.getOfflicePhNumber());
         imssupplierdao.update(supplierobj);
 
@@ -112,6 +114,7 @@ public class SupplierService {
             supplierobj.setEnteredDate(supplier.getEnteredDate());
             supplierobj.setEnteredBy(supplier.getImsLogindetails().getUserName());
             supplierobj.setStatus(supplier.getStatus());
+            supplierobj.setGstNumber(supplier.getGstnumber());
             supplierobj.setOfflicePhNumber(supplier.getOfflicePhNumber() != null ? supplier.getOfflicePhNumber() : "");
             suppliermodel.add(supplierobj);
         }
@@ -135,6 +138,7 @@ public class SupplierService {
         supplierobj.setEnteredDate(supplier.getEnteredDate());
         supplierobj.setEnteredBy(supplier.getImsLogindetails().getUserName());
         supplierobj.setStatus(supplier.getStatus());
+        supplierobj.setGstNumber(supplier.getGstnumber());
         supplierobj.setOfflicePhNumber(supplier.getOfflicePhNumber() != null ? supplier.getOfflicePhNumber() : "");
 
         return supplierobj;

@@ -36,6 +36,8 @@ public class ProductModel {
     @JsonProperty
      private Date enteredDate;
     @JsonProperty
+     private String hsnSacNo;
+    @JsonProperty
      private StockModel stockdetails;
 
     public String getProductcode() {
@@ -117,7 +119,14 @@ public class ProductModel {
     public void setEnteredDate(Date enteredDate) {
         this.enteredDate = enteredDate;
     }
+    
+    public String getHsnSacNo() {
+        return hsnSacNo;
+    }
 
+    public void setHsnSacNo(String hsnSacNo) {
+        this.hsnSacNo = hsnSacNo;
+    }
     public StockModel getStockdetails() {
         return stockdetails;
     }

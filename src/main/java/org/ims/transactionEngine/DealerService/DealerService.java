@@ -71,6 +71,7 @@ public class DealerService {
         dealerobj.setEnteredDate(dealer.getEnteredDate());
         dealerobj.setImsLogindetails(Logininfo);
         dealerobj.setStatus(dealer.getStatus());
+        dealerobj.setGstnumber(dealer.getGstNumber());
         dealerobj.setOfflicePhNumber(dealer.getOfflicePhNumber());
         imsdealerdao.create(dealerobj);
 
@@ -92,6 +93,7 @@ public class DealerService {
         dealerobj.setEnteredDate(dealer.getEnteredDate());
         dealerobj.setImsLogindetails(Logininfo);
         dealerobj.setStatus(dealer.getStatus());
+        dealerobj.setGstnumber(dealer.getGstNumber());
         dealerobj.setOfflicePhNumber(dealer.getOfflicePhNumber());
         imsdealerdao.update(dealerobj);
 
@@ -115,6 +117,7 @@ public class DealerService {
             dealerobj.setEnteredDate(dealer.getEnteredDate());
             dealerobj.setEnteredBy(dealer.getImsLogindetails().getUserName());
             dealerobj.setStatus(dealer.getStatus());
+            dealerobj.setGstNumber(dealer.getGstnumber());
             dealerobj.setOfflicePhNumber(dealer.getOfflicePhNumber() != null ? dealer.getOfflicePhNumber() : "");
             dealermodel.add(dealerobj);
         }
@@ -138,6 +141,7 @@ public class DealerService {
         dealerobj.setEnteredDate(dealer.getEnteredDate());
         dealerobj.setEnteredBy(dealer.getImsLogindetails().getUserName());
         dealerobj.setStatus(dealer.getStatus());
+        dealerobj.setGstNumber(dealer.getGstnumber());
         dealerobj.setOfflicePhNumber(dealer.getOfflicePhNumber() != null ? dealer.getOfflicePhNumber() : "");
 
         return dealerobj;

@@ -42,9 +42,28 @@ public class ProductService {
         product.setSize(productdetails.getSize());
         product.setMoq(productdetails.getMoq());
         product.setColor(productdetails.getColor());
+        product.setHsnSacNo(productdetails.getHsnSacNo());
         product.setImsLogindetails(logininfo);
         product.setEnteredDate(productdetails.getEnteredDate());
         imsproductsdao.create(product);
+
+        return true;
+    }
+       @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public boolean updateProduct(ProductModel productdetails, ImsLogindetails logininfo) throws Exception {
+        ImsProductdetails product = new ImsProductdetails();
+        product.setProductCode(productdetails.getProductcode());
+        product.setProductName(productdetails.getProductname());
+        product.setImsProductcategory(imsproductcategorydao.findOne(" CategoryCode='"+productdetails.getProductcategorycode() + "'"));
+        product.setSpecificationAndThickNess(productdetails.getSpecificationandthickness());
+        product.setUnits(productdetails.getUnits());
+        product.setSize(productdetails.getSize());
+        product.setMoq(productdetails.getMoq());
+        product.setColor(productdetails.getColor());
+        product.setHsnSacNo(productdetails.getHsnSacNo());
+        product.setImsLogindetails(logininfo);
+        product.setEnteredDate(productdetails.getEnteredDate());
+        imsproductsdao.update(product);
 
         return true;
     }
@@ -62,6 +81,7 @@ public class ProductService {
             objPrd.setMoq(product.getMoq());
             objPrd.setColor(product.getColor());
             objPrd.setProductcategorycode(product.getImsProductcategory().getCategoryCode());
+            objPrd.setHsnSacNo(product.getHsnSacNo());
             objPrd.setEnteredby(product.getImsLogindetails().getUserName());
             objPrd.setEnteredDate(product.getEnteredDate());
             objPrd.setStockdetails(getStockDetails(product.getProductCode()));
@@ -80,6 +100,7 @@ public class ProductService {
         objPrd.setSize(product.getSize());
         objPrd.setMoq(product.getMoq());
         objPrd.setColor(product.getColor());
+        objPrd.setHsnSacNo(product.getHsnSacNo());
         objPrd.setProductcategorycode(product.getImsProductcategory().getCategoryCode());
         objPrd.setStockdetails(getStockDetails(product.getProductCode()));
         objPrd.setEnteredby(product.getImsLogindetails().getUserName());

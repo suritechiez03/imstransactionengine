@@ -119,6 +119,13 @@ public class DealerModel {
         this.status = status;
     }
 
+    public String getGstNumber() {
+        return gstNumber;
+    }
+
+    public void setGstNumber(String gstNumber) {
+        this.gstNumber = gstNumber;
+    }
     @JsonProperty
     private String dealerNumber;
     @JsonProperty
@@ -143,7 +150,10 @@ public class DealerModel {
     private String offlicePhNumber;
     @JsonProperty
     private Date enteredDate;
+
     @JsonProperty
     private Boolean status;
+     @JsonProperty
+    private String gstNumber;
 
 }

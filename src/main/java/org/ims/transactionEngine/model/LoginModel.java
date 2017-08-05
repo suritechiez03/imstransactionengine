@@ -44,6 +44,13 @@ public class LoginModel implements java.io.Serializable {
     public void setLoginparam(String loginparam) {
         this.loginparam = loginparam;
     }
+    public String getUserRole() {
+        return UserRole;
+    }
+
+    public void setUserRole(String UserRole) {
+        this.UserRole = UserRole;
+    }
 @JsonProperty    
 private String UserName;
 @JsonProperty    
@@ -54,4 +61,6 @@ private String token;
 @JsonProperty
 @JsonIgnore
 private String loginparam;
+@JsonIgnore
+private String UserRole;
 }

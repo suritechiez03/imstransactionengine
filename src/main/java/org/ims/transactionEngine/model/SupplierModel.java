@@ -119,6 +119,13 @@ public class SupplierModel {
         this.status = status;
     }
 
+    public String getGstNumber() {
+        return gstNumber;
+    }
+
+    public void setGstNumber(String gstNumber) {
+        this.gstNumber = gstNumber;
+    }
     @JsonProperty
     private String supplierNumber;
     @JsonProperty
@@ -145,5 +152,7 @@ public class SupplierModel {
     private Date enteredDate;
     @JsonProperty
     private Boolean status;
+    @JsonProperty
+    private String gstNumber;
 
 }
